@@ -1,10 +1,17 @@
+import { useState } from "react";
+import ContactDetails from "./ContactDetails";
 
 const DisplayModal = ({ item, checks }) => {
+  const [showDetailModal, setShowDetailModal] = useState(false);
+
+  const handleDetailShow = () => setShowDetailModal(true);
+  const handleDetailClose = () => setShowDetailModal(false);
   return (
     <>
       <div
         className="border-0 m-3"
         style={{ width: "90%", cursor: "pointer" }}
+        onClick={handleDetailShow}
       >
         {!checks && (
           <div className="modal-body border">
@@ -27,7 +34,14 @@ const DisplayModal = ({ item, checks }) => {
           </div>
         )}
       </div>
-      
+
+      {showDetailModal && (
+        <ContactDetails
+          handleDetailClose={handleDetailClose}
+          id={item.id}
+          country={item.country.name}
+        />
+      )}
     </>
   );
 };
